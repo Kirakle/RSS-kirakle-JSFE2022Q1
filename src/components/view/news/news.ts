@@ -1,9 +1,10 @@
+import { COUNT_NEWS } from './../../constants/constants';
 import { Article } from '../../../types/interfaces';
 import './news.css';
 
 class News {
   public draw(data: Article[]): void {
-    const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    const news = data.length >= COUNT_NEWS ? data.filter((_item, idx) => idx < COUNT_NEWS) : data;
 
     const fragment: DocumentFragment = document.createDocumentFragment();
     const newsItemTemp = <HTMLTemplateElement>document.querySelector('#newsItemTemp');
@@ -13,27 +14,30 @@ class News {
 
       if (idx % 2) (newsClone.querySelector('.news__item') as Element).classList.add('alt');
 
-      (<HTMLElement>newsClone.querySelector('.news__meta-photo')).style.backgroundImage = `url(${
+      (<HTMLDivElement>newsClone.querySelector('.news__meta-photo')).style.backgroundImage = `url(${
         item.urlToImage || 'img/news_placeholder.jpg'
       })`;
-      (<HTMLElement>newsClone.querySelector('.news__meta-author')).textContent =
+      (<HTMLLIElement>newsClone.querySelector('.news__meta-author')).textContent =
         item.author || item.source.name;
-      (<HTMLElement>(
+      (<HTMLLIElement>(
         newsClone.querySelector('.news__meta-date')
       )).textContent = item.publishedAt.slice(0, 10).split('-').reverse().join('-');
 
       (<HTMLElement>newsClone.querySelector('.news__description-title')).textContent = item.title;
       (<HTMLElement>newsClone.querySelector('.news__description-source')).textContent =
         item.source.name;
-      (<HTMLElement>newsClone.querySelector('.news__description-content')).textContent =
+      (<HTMLParagraphElement>newsClone.querySelector('.news__description-content')).textContent =
         item.description;
-      (<HTMLElement>newsClone.querySelector('.news__read-more a')).setAttribute('href', item.url);
+      (<HTMLLinkElement>newsClone.querySelector('.news__read-more a')).setAttribute(
+        'href',
+        item.url
+      );
 
       fragment.append(newsClone);
     });
 
-    (<HTMLElement>document.querySelector('.news')).innerHTML = '';
-    (<HTMLElement>document.querySelector('.news')).appendChild(fragment);
+    (<HTMLDivElement>document.querySelector('.news')).innerHTML = '';
+    (<HTMLDivElement>document.querySelector('.news')).appendChild(fragment);
   }
 }
 

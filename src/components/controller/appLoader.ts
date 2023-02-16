@@ -1,9 +1,10 @@
 import Loader from './loader';
+import { MAIN_URL, API_KEY } from '../constants/constants';
 
 class AppLoader extends Loader {
   constructor() {
-    super('https://newsapi.org/v2/', {
-      apiKey: '32331036c43e446c82473aef808bb69f',
+    super(MAIN_URL, {
+      apiKey: API_KEY,
     });
   }
 }

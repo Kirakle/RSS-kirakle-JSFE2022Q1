@@ -1,5 +1,4 @@
 import { ISources, IArticles, CallbackType, Endpoints } from '../../types/interfaces';
-
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
@@ -24,7 +23,7 @@ class AppController extends AppLoader {
           newsContainer.setAttribute('data-source', sourceId);
           super.getResp(
             {
-              endpoint: 'everything',
+              endpoint: Endpoints.everything,
               options: {
                 sources: sourceId,
               },

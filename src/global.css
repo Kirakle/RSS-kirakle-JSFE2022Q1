@@ -1,6 +1,5 @@
 body {
     color: #fcfcfc;
-    /* background: #4d5b9c; */
     background: linear-gradient(-45deg, #5bb8da, #0f5188);
     background-size: 100vw 400%;
     font-family: sans-serif;
@@ -30,6 +29,7 @@ footer {
     padding: 15px;
     position: relative;
 }
+
 footer .copyright {
     font-size: 14px;
     color: #000000;
@@ -39,13 +39,16 @@ footer .copyright {
     left:50%;
     transform:translate(-50%, -50%);
 }
+
 footer .copyright a {
     color: rgb(9, 172, 212);
     text-decoration: none;
 }
+
 footer .copyright a:hover {
     color: #ffffff;
 }
+
 footer .copyright:before {
     content: '©';
 }
@@ -65,6 +68,7 @@ main {
   text-decoration: none;
   color:rgb(9, 172, 212);
 }
+
 .github:hover {
   color: #ffffff;
 }

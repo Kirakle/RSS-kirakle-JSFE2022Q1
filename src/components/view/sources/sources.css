@@ -13,24 +13,6 @@
     width: 0;
 }
 
-/* .sources-controls {
-    height: 50px;
-    min-width: 120px;
-    width: 160px;
-    margin: 0 auto;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.next, .prev {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: transparent;
-    border: 2px solid #30c5ff;
-} */
-
 .source__item {
     background: none;
     border: 2px solid #30c5ff;
