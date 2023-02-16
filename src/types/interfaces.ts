@@ -33,9 +33,14 @@ export interface IArticles {
   totalResults: number;
 }
 
-export type CallbackType<T> = (data?: T) => void;
+export type CallbackType<T> = (data?: T | undefined) => void;
 
 export type Options = {
   apiKey?: string;
   sources?: string;
 };
+
+export enum Endpoints {
+  sources = 'sources',
+  everything = 'everything',
+}

@@ -1,18 +1,18 @@
-import { ISources, IArticles, CallbackType } from './interfaces';
+import { ISources, IArticles, CallbackType, Endpoints } from '../../types/interfaces';
 
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-  getSources(callback: CallbackType<ISources>) {
+  public getSources(callback: CallbackType<ISources>) {
     super.getResp(
       {
-        endpoint: 'sources',
+        endpoint: Endpoints.sources,
       },
       callback
     );
   }
 
-  getNews(e: MouseEvent, callback: CallbackType<IArticles>): void {
+  public getNews(e: MouseEvent, callback: CallbackType<IArticles>): void {
     let target = <HTMLElement>e.target;
     const newsContainer = <HTMLElement>e.currentTarget;
 

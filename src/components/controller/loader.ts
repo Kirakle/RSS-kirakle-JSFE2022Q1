@@ -1,4 +1,4 @@
-import { ISources, IArticles, Options, CallbackType } from './interfaces';
+import { ISources, IArticles, Options, CallbackType } from '../../types/interfaces';
 
 class Loader {
   private baseLink: string;
@@ -9,7 +9,7 @@ class Loader {
     this.options = options;
   }
 
-  getResp(
+  public getResp(
     { endpoint = '', options = {} }: { endpoint: string; options?: Options },
     callback: CallbackType<IArticles> | CallbackType<ISources> = (): void => {
       console.error('No callback for GET response');
@@ -18,7 +18,7 @@ class Loader {
     this.load('GET', endpoint, callback, options);
   }
 
-  errorHandler(res: Response): Response {
+  private errorHandler(res: Response): Response {
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -28,7 +28,7 @@ class Loader {
     return res;
   }
 
-  makeUrl(options: Options, endpoint: string): string {
+  private makeUrl(options: Options, endpoint: string): string {
     const urlOptions = { ...this.options, ...options };
     let url = `${this.baseLink}${endpoint}?`;
 
@@ -39,7 +39,7 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  load(
+  private load(
     method: string,
     endpoint: string,
     callback: CallbackType<IArticles> | CallbackType<ISources>,
@@ -47,9 +47,9 @@ class Loader {
   ) {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
-      .then((res) => res.json())
-      .then((data) => callback(data))
-      .catch((err) => console.error(err));
+      .then((res: Response) => res.json())
+      .then((data: IArticles & ISources) => callback(data))
+      .catch((err: Error) => console.error(err));
   }
 }
 

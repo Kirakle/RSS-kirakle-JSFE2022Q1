@@ -1,9 +1,9 @@
-import { Source } from '../../controller/interfaces';
+import { Source } from '../../../types/interfaces';
 import './sources.css';
 
 class Sources {
-  draw(data: Source[]) {
-    const fragment = document.createDocumentFragment();
+  public draw(data: Source[]) {
+    const fragment: DocumentFragment = document.createDocumentFragment();
     const sourceItemTemp = <HTMLTemplateElement>document.querySelector('#sourceItemTemp');
 
     data.forEach((item) => {

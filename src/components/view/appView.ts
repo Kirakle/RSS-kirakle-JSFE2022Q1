@@ -1,4 +1,4 @@
-import { IArticles, ISources } from '../controller/interfaces';
+import { IArticles, ISources } from '../../types/interfaces';
 import News from './news/news';
 import Sources from './sources/sources';
 
@@ -11,12 +11,12 @@ export class AppView {
     this.sources = new Sources();
   }
 
-  drawNews(data: IArticles | undefined) {
+  public drawNews(data: IArticles | undefined): void {
     const values = data?.articles ? data?.articles : [];
     this.news.draw(values);
   }
 
-  drawSources(data: ISources | undefined) {
+  public drawSources(data: ISources | undefined): void {
     const values = data?.sources ? data?.sources : [];
     this.sources.draw(values);
   }
