@@ -10,15 +10,15 @@ class Loader {
   }
 
   getResp(
-    { endpoint = '', options = {} },
-    callback: CallbackType<IArticles | ISources> = (): void => {
+    { endpoint = '', options = {} }: { endpoint: string; options?: Options },
+    callback: CallbackType<IArticles> | CallbackType<ISources> = (): void => {
       console.error('No callback for GET response');
     }
   ) {
     this.load('GET', endpoint, callback, options);
   }
 
-  errorHandler(res: Response) {
+  errorHandler(res: Response): Response {
     if (!res.ok) {
       if (res.status === 401 || res.status === 404)
         console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -42,8 +42,8 @@ class Loader {
   load(
     method: string,
     endpoint: string,
-    callback: CallbackType<ISources | IArticles>,
-    options = {}
+    callback: CallbackType<IArticles> | CallbackType<ISources>,
+    options: Options = {}
   ) {
     fetch(this.makeUrl(options, endpoint), { method })
       .then(this.errorHandler)
