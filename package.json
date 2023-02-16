@@ -8,6 +8,10 @@
         "build": "webpack --config ./webpack.config.js --env mode=prod",
         "lint": "eslint . --ext .ts"
     },
+    "prettier": {
+        "singleQuote": true,
+        "printWidth": 100
+    },
     "repository": {
         "type": "git",
         "url": ""
