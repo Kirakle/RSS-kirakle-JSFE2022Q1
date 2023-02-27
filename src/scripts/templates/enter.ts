@@ -1,5 +1,17 @@
 import { TypePage } from '../types/enums';
+import { CategoryFilterTypes } from '../types/interfaces';
 
+export const templateSearchFilter = (activeFilters: CategoryFilterTypes): void => {
+    const isSearch: HTMLElement = document.querySelector('.search-container');
+    const input: HTMLElement = document.createElement('input');
+    input.setAttribute('type', 'search');
+    input.setAttribute('placeholder', 'Поиск по названию');
+    input.setAttribute('class', 'input__search');
+    input.setAttribute('autofocus', 'true');
+    input.setAttribute('value', activeFilters.searchFilter as string);
+    input.setAttribute('autocomplete', 'off');
+    isSearch.appendChild(input);
+};
 
 export const templateHeader = (
     page: TypePage,
