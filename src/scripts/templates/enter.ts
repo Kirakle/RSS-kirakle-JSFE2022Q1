@@ -35,7 +35,7 @@ export const templateLayout: (html: string) => string = (html: string) => {
           <div class="header-container">
           <div class="header__logo">
               <a class="logo" href="#">
-                <img class="logo__image" src="../../assets/images/logo.svg"></img>
+                <img class="logo__image" src="../../assets/images/logo.png"></img>
                 <h1 class="logo__text">Online Store</h1>
               </a>       
           </div>
