@@ -23,8 +23,9 @@ class FilterController {
         if (cart.length < MAX_LENGTH_GOODS_IN_CART || cart.includes(item)) {
             ls.setCartLocalStorage(item);
             db.setCart(ls.getCartLocalStorage());
+        } else {
+            this.filterPage.renderModal();
         }
-
         this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
     };
 
@@ -41,7 +42,8 @@ class FilterController {
         this.drawFilterPage();
     };
 
-    public drawFilterPage = (): void => {  
+    public drawFilterPage = (): void => {
+        
         this.filterPage.renderFilterPage(
             this.filterHandler,
             db.getActiveFilters(),

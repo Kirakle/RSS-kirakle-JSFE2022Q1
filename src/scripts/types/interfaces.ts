@@ -18,6 +18,17 @@ export interface IManufacturerFilterConstants {
     key: string;
 }
 
+export interface IColorFilterConstants {
+    id: number;
+    type: Colors;
+    bgColor: string;
+}
+
+export interface ICamersFilterConstants {
+    id: number;
+    type: Camers;
+    class: string;
+}
 
 export interface ISortFilterConstants {
     id: number;

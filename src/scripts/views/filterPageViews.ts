@@ -1,9 +1,9 @@
 import { EMPTY_FILTER_TEXT } from '../constants/constants';
-import {setFiltersListeners,templateFilterPage} from '../templates';
+import { setFiltersListeners, setModalListeners, templateFilterPage } from '../templates';
 import { setCardItemListners, templateCardItem } from '../templates/filter-page-card';
-import { TypeFilter } from '../types/enums';
+import { TypeFilter, TypeSort } from '../types/enums';
 import { CategoryFilterType, CategoryFilterTypes, ICardItem } from '../types/interfaces';
-import { cutDecimalsFormat } from '../utils/utils';
+
 
 import Root from './rootView';
 
@@ -14,13 +14,9 @@ class FilterPage {
         this.root = new Root();
     }
 
-    public rangeHandler = (
-        value: string[],
-        filterHandler: (filtertype: TypeFilter, item: CategoryFilterType) => void,
-        key: TypeFilter
-    ): void => {
-        const val: string[] = cutDecimalsFormat(value);
-        filterHandler(key, val);
+    public renderModal = (): void => {
+        const modal: HTMLTemplateElement = document.querySelector('.cart-modal');
+        modal.classList.add('show-modal');
     };
 
     public renderCards = (
@@ -38,8 +34,8 @@ class FilterPage {
         if (arr.length === 0) {
             div.innerHTML = EMPTY_FILTER_TEXT;
         }
-        const cart: HTMLTemplateElement = document.querySelector('.cart');
-        cart.innerHTML = getLocalFavorite.length.toString();
+        const ball: HTMLTemplateElement = document.querySelector('.cart');
+        ball.innerHTML = getLocalFavorite.length.toString();
     };
 
     public renderFilterPage = (
@@ -52,6 +48,7 @@ class FilterPage {
         this.root.resetContainer();
         const html: string = templateFilterPage(activeFilter);
         this.root.changeInnerRoot(html);
+        setModalListeners();
         setFiltersListeners(filterHandler);
     };
 }

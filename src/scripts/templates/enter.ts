@@ -1,22 +1,36 @@
 import { TypePage } from '../types/enums';
 
+
 export const templateHeader = (
     page: TypePage,
     countCart: number,
 ) => {
-    const div: HTMLElement = document.querySelector('.header');
-    const header: HTMLElement = document.createElement('div');
-    header.classList.add('header-container');
+    const header: HTMLElement = document.querySelector('.header-container');
+
+    if (page === TypePage.filter) {
+        const search: HTMLElement = document.createElement('div');
+        search.classList.add('search-container');
+        const searchConteiner: HTMLElement = document.querySelector('.search-container');
+        searchConteiner.appendChild(search)
+    }
+
     const cart: HTMLElement = document.createElement('div');
     cart.classList.add('cart');
     cart.innerHTML = countCart.toString();
     header.appendChild(cart);
-    div.appendChild(header);
 };
 
 export const templateLayout: (html: string) => string = (html: string) => {
     return `
         <header class="header">
+          <div class="header-container">
+          <div class="header__logo">
+              <a class="logo" href="#">
+                <img class="logo__image" src="../../assets/images/logo.svg"></img>
+                <h1 class="logo__text">Online Store</h1>
+              </a>       
+          </div>
+          </div>
         </header>
       ${html}
         <footer class="footer">

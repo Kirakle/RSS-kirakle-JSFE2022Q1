@@ -1,7 +1,10 @@
-import { Manufacturer, TypeSort } from '../types/enums';
+import { Colors, Manufacturer, Camers, TypeSort } from '../types/enums';
 import {
     ICardItem,
+    IColorFilterConstants,
     IManufacturerFilterConstants,
+    ICamersFilterConstants,
+    ISliderFilterConstants,
     ISortFilterConstants,
 } from '../types/interfaces';
 
@@ -10,6 +13,32 @@ export const MANUFACTURER_FILTER: IManufacturerFilterConstants[] = [
     { id: 2, type: Manufacturer.samsung, image: 'samsung.svg', key: 'samsung' },
     { id: 3, type: Manufacturer.xiaomi, image: 'xiaomi.svg', key: 'xiaomi' },
 ];
+
+export const COLORS_FILTER: IColorFilterConstants[] = [
+    { id: 1, type: Colors.white, bgColor: '#fff' },
+    { id: 2, type: Colors.yellow, bgColor: '#ffe625' },
+    { id: 3, type: Colors.red, bgColor: '#cd2846' },
+];
+
+export const CAMERS_FILTER: ICamersFilterConstants[] = [
+    { id: 1, type: Camers.one, class: 'one' },
+    { id: 2, type: Camers.two, class: 'two' },
+    { id: 3, type: Camers.three, class: 'three' },
+];
+
+export const MIN_SLIDER_RANGE: ISliderFilterConstants = {
+    count: 1,
+    year: 2010,
+};
+
+export const MAX_SLIDER_RANGE: ISliderFilterConstants = {
+    count: 12,
+    year: 2022,
+};
+export const STEP_SLIDER_RANGE: ISliderFilterConstants = {
+    count: 1,
+    year: 1,
+};
 
 export const SORTS: ISortFilterConstants[] = [
     {
