@@ -28,7 +28,7 @@ class Local {
     };
 
     public getCartLocalStorage = (): string[] => {
-        return JSON.parse(localStorage.getItem('cart')) || [];
+        return JSON.parse(<string>localStorage.getItem('cart')) || [];
     };
 
     public setCartLocalStorage = (value: string): void => {

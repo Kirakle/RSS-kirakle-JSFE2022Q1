@@ -12,15 +12,8 @@ class Root {
         root.insertAdjacentHTML('afterbegin', templateLayout(htmlBlock));
     }
 
-    drawHeader(
-        page: TypePage,
-        countFavorite: number,
-        activeFilters: CategoryFilterTypes,
-    ): void {
-        templateHeader(
-            page,
-            countFavorite,
-        );
+    drawHeader(page: TypePage, countFavorite: number, activeFilters: CategoryFilterTypes): void {
+        templateHeader(page, countFavorite);
         page === TypePage.filter && templateSearchFilter(activeFilters);
     }
 }

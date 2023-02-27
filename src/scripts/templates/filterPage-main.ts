@@ -1,19 +1,21 @@
-import { COLORS_FILTER, MANUFACTURER_FILTER, CAMERS_FILTER} from '../constants/filter-const';
-import { Colors, Manufacturer, Camers, TypeFilter } from '../types/enums';
+import { COLORS_FILTER, MANUFACTURER_FILTER, CAMERS_FILTER, SORTS } from '../constants/filter-const';
+import { Colors, Manufacturer, Camers, TypeFilter, TypeSort } from '../types/enums';
 import { CategoryFilterType, CategoryFilterTypes } from '../types/interfaces';
 
-type TemplateManufacturerFilterType = (activeFilters: CategoryFilterTypes) => string;
-type TemplateColorsFilterType = (activeFilter: CategoryFilterTypes) => string;
-type TemplateCamersFilterType = (activeFilter: CategoryFilterTypes) => string;
-type TemplatePopularFilterType = (activeFilter: CategoryFilterTypes) => string;
+type TemplateManufacturerFilterType = (
+    activeFilters: Record<TypeFilter, Manufacturer[]> | CategoryFilterTypes
+) => string;
+type TemplateColorsFilterType = (activeFilter: Record<TypeFilter, Colors[]> | CategoryFilterTypes) => string;
+type TemplateCamersFilterType = (activeFilter: Record<TypeFilter, Camers[]> | CategoryFilterTypes) => string;
+type TemplatePopularFilterType = (activeFilter: Record<TypeFilter, boolean> | CategoryFilterTypes) => string;
 
-const templateManufacturerFilter: TemplateManufacturerFilterType = (activeFilters: Record<TypeFilter, Manufacturer[]>) => {
-    const ul: HTMLElement = document.createElement('ul');
+const templateManufacturerFilter: TemplateManufacturerFilterType = (activeFilters) => {
+    const ul: HTMLUListElement = document.createElement('ul');
     MANUFACTURER_FILTER.forEach((item) => {
-        const li: HTMLElement = document.createElement('li');
-        const img: HTMLElement = document.createElement('img');
+        const li: HTMLLIElement = document.createElement('li');
+        const img: HTMLImageElement = document.createElement('img');
         img.setAttribute('src', `assets/images/${item.image}`);
-        if (activeFilters[TypeFilter.manufacturer].includes(item.type)) {
+        if ((activeFilters[TypeFilter.manufacturer] as Manufacturer[]).includes(item.type)) {
             li.classList.add('active');
         }
         li.classList.add('manufacturer-filter-item');
@@ -23,12 +25,35 @@ const templateManufacturerFilter: TemplateManufacturerFilterType = (activeFilter
     return ul.outerHTML;
 };
 
-const templateColorsFilter: TemplateColorsFilterType = (activeFilters: Record<TypeFilter, Colors[]>): string => {
-    const ul: HTMLElement = document.createElement('ul');
+const templateSortRadio: (typeS: TypeSort) => string = (typeS: TypeSort): string => {
+    const div: HTMLDivElement = document.createElement('div');
+    SORTS.forEach((item, index) => {
+        const input: HTMLInputElement = document.createElement('input');
+        input.setAttribute('type', 'radio');
+        input.setAttribute('name', 'type-sort');
+        input.classList.add('sort-input');
+        input.id = SORTS[index].type;
+        div.appendChild(input);
+        if (SORTS[index].type === typeS) {
+            input.setAttribute('checked', 'checked');
+        }
+    });
+    SORTS.forEach((item, index) => {
+        const label: HTMLLabelElement = document.createElement('label');
+        label.setAttribute('for', SORTS[index].type);
+        label.classList.add('sort-type_select');
+        label.innerHTML = SORTS[index].innerText;
+        div.appendChild(label);
+    });
+    return div.outerHTML;
+};
+
+const templateColorsFilter: TemplateColorsFilterType = (activeFilters) => {
+    const ul: HTMLUListElement = document.createElement('ul');
     COLORS_FILTER.forEach((item) => {
-        const li: HTMLElement = document.createElement('li');
+        const li: HTMLLIElement = document.createElement('li');
         li.style.background = item.bgColor;
-        if (activeFilters[TypeFilter.colors].includes(item.type)) {
+        if ((activeFilters[TypeFilter.colors] as Colors[]).includes(item.type)) {
             li.classList.add('active');
         }
         li.classList.add('color-filter-item');
@@ -37,12 +62,12 @@ const templateColorsFilter: TemplateColorsFilterType = (activeFilters: Record<Ty
     return ul.outerHTML;
 };
 
-const templateCamersFilter: TemplateCamersFilterType = (activeFilters: Record<TypeFilter, Camers[]>): string => {
-    const ul: HTMLElement = document.createElement('ul');
+const templateCamersFilter: TemplateCamersFilterType = (activeFilters) => {
+    const ul: HTMLUListElement = document.createElement('ul');
     CAMERS_FILTER.forEach((item) => {
-        const li: HTMLElement = document.createElement('li');
+        const li: HTMLLIElement = document.createElement('li');
         li.id = item.class;
-        if (activeFilters[TypeFilter.camers].includes(item.type)) {
+        if ((activeFilters[TypeFilter.camers] as Camers[]).includes(item.type)) {
             li.classList.add('active');
         }
         li.classList.add('cam-filter-item');
@@ -51,10 +76,10 @@ const templateCamersFilter: TemplateCamersFilterType = (activeFilters: Record<Ty
     return ul.outerHTML;
 };
 
-const templatePopularFilter: TemplatePopularFilterType = (activeFilters: Record<TypeFilter, boolean>): string => {
-    const div: HTMLElement = document.createElement('div');
+const templatePopularFilter: TemplatePopularFilterType = (activeFilters) => {
+    const div: HTMLDivElement = document.createElement('div');
     div.classList.add('popular-filter');
-    const input: HTMLElement = document.createElement('input');
+    const input: HTMLInputElement = document.createElement('input');
     input.id = 'popular-filter';
     input.setAttribute('type', 'checkbox');
     if (activeFilters[TypeFilter.popular]) {
@@ -62,7 +87,7 @@ const templatePopularFilter: TemplatePopularFilterType = (activeFilters: Record<
     }
 
     div.appendChild(input);
-    const label: HTMLElement = document.createElement('label');
+    const label: HTMLLabelElement = document.createElement('label');
     label.setAttribute('for', 'popular-filter');
     label.innerHTML = 'Только популярные:';
     div.appendChild(label);
@@ -88,7 +113,7 @@ export const setFiltersListeners: (filter: (filtertype: TypeFilter, item: Catego
     for (let i = 0; i < camers.length; i = i + 1) {
         camers[i].addEventListener('click', () => filter(TypeFilter.camers, CAMERS_FILTER[i].type));
     }
-    const isPopular = document.querySelector('#popular-filter');
+    const isPopular: HTMLInputElement = <HTMLInputElement>document.querySelector('#popular-filter');
     isPopular.addEventListener('change', (e: Event) => {
         const target = e.target as HTMLInputElement;
         filter(TypeFilter.popular, target.checked);
@@ -96,16 +121,16 @@ export const setFiltersListeners: (filter: (filtertype: TypeFilter, item: Catego
 };
 
 export const templateCartCount = (count: number): void => {
-    const cart: HTMLTemplateElement = document.querySelector('.cart');
+    const cart: HTMLTemplateElement = <HTMLTemplateElement>document.querySelector('.cart');
     cart.innerHTML = count.toString();
 };
 
 export const templateCartModal = (): string => {
-    const div: HTMLElement = document.createElement('div');
+    const div: HTMLDivElement = document.createElement('div');
     div.classList.add('cart-modal');
-    const close: HTMLElement = document.createElement('div');
+    const close: HTMLDivElement = document.createElement('div');
     close.classList.add('modal-close');
-    const text: HTMLElement = document.createElement('div');
+    const text: HTMLDivElement = document.createElement('div');
     text.innerHTML = 'Извините, все слоты заполнены!';
     div.appendChild(text);
     div.appendChild(close);
@@ -113,9 +138,9 @@ export const templateCartModal = (): string => {
 };
 
 export const setModalListeners = (): void => {
-    const close: HTMLElement = document.querySelector('.modal-close');
+    const close: HTMLDivElement = <HTMLDivElement>document.querySelector('.modal-close');
     close.addEventListener('click', () => {
-        const div: HTMLElement = document.querySelector('.cart-modal');
+        const div: HTMLDivElement = <HTMLDivElement>document.querySelector('.cart-modal');
         div.classList.remove('show-modal');
     });
 };
@@ -157,14 +182,14 @@ export const templateFilterPage: (activeFilter: CategoryFilterTypes) => string =
                         </div>
                     </div>
                     <div class="menu__sort-type">
-                        <h2>Поиск</h2>
-                        <div id="searching" class ="search-container"></div>
-                        <h2>Сортировка</h2>                     
-                        <div class="reset-buttons">
-                            <button id="reset-filter">Сбросить фильтры</button>
-                            <button id="reset-storage">Сбросить настройки</button>
+                        <div id="searching" class ="search-container">
+                          <h2>Поиск</h2>
                         </div>
-                        
+                        <h2>Сортировка</h2>                    
+                        <div class="reset-buttons">
+                            <button id="reset-filter">Сброс фильтров</button>
+                            <button id="reset-storage">Сброс настроек</button>
+                        </div>     
                     </div>
 
                 </section>

@@ -2,8 +2,8 @@ import { TypePage } from '../types/enums';
 import { CategoryFilterTypes } from '../types/interfaces';
 
 export const templateSearchFilter = (activeFilters: CategoryFilterTypes): void => {
-    const isSearch: HTMLElement = document.querySelector('.search-container');
-    const input: HTMLElement = document.createElement('input');
+    const isSearch = <HTMLDivElement>document.querySelector('.search-container');
+    const input = <HTMLInputElement>document.createElement('input');
     input.setAttribute('type', 'search');
     input.setAttribute('placeholder', 'Поиск по названию');
     input.setAttribute('class', 'input__search');
@@ -13,20 +13,17 @@ export const templateSearchFilter = (activeFilters: CategoryFilterTypes): void =
     isSearch.appendChild(input);
 };
 
-export const templateHeader = (
-    page: TypePage,
-    countCart: number,
-) => {
-    const header: HTMLElement = document.querySelector('.header-container');
+export const templateHeader = (page: TypePage, countCart: number) => {
+    const header = <HTMLDivElement>document.querySelector('.header-container');
 
     if (page === TypePage.filter) {
-        const search: HTMLElement = document.createElement('div');
+        const search: HTMLDivElement = document.createElement('div');
         search.classList.add('search-container');
-        const searchConteiner: HTMLElement = document.querySelector('.search-container');
-        searchConteiner.appendChild(search)
+        const searchConteiner = <HTMLDivElement>document.querySelector('.search-container');
+        searchConteiner.appendChild(search);
     }
 
-    const cart: HTMLElement = document.createElement('div');
+    const cart: HTMLDivElement = document.createElement('div');
     cart.classList.add('cart');
     cart.innerHTML = countCart.toString();
     header.appendChild(cart);

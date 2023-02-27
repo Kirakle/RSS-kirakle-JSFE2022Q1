@@ -34,4 +34,3 @@ export enum TypeSort {
 export enum TypePage {
     filter = 'filter',
 }
-

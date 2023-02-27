@@ -6,11 +6,12 @@ import ls from '../services/lsService';
 
 class App {
     public start(): void {
-        getCards().then((data: ICardItem[]) => {
+        getCards().then((data) => {
             ls.generateLocalStorage();
-            db.saveCardsArr(data);
+            db.saveCardsArr(data as ICardItem[]);
             this.getSetting();
             FilterController.drawFilterPage();
+            FilterController.drawFilterSliders();
             db.setIsNotFirstLoading();
         });
     }

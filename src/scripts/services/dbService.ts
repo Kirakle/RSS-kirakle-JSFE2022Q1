@@ -3,7 +3,6 @@ import { sortMapper } from '../constants/filter-const';
 import { Colors, Manufacturer, Camers, TypeFilter, TypeSort } from '../types/enums';
 import { CategoryFilterType, CategoryFilterTypes, ICardItem, IFilters } from '../types/interfaces';
 
-
 class Db {
     cardsArr: ICardItem[];
     initialCardArray: ICardItem[];
@@ -46,17 +45,13 @@ class Db {
         return this.cardsArr;
     }
     public setCart(data: string[]) {
-        let
-            selected: ICardItem[] = [...this.cardsArr];
+        let selected: ICardItem[] = [...this.cardsArr];
 
         selected =
             data.length > 0
-                ?
-                selected.filter((item) => data.includes(item.num))
-                :
-                selected.slice(0, MAX_LENGTH_GOODS_IN_CART);
-        this.cart =
-            selected;
+                ? selected.filter((item) => data.includes(item.num))
+                : selected.slice(0, MAX_LENGTH_GOODS_IN_CART);
+        this.cart = selected;
     }
     public getCart() {
         return this.cart;
@@ -64,10 +59,13 @@ class Db {
     public getFilteredCardsArr() {
         let result = [...this.cardsArr];
         result =
-            this.manufacturerFilter.length > 0 ? result.filter((item) => this.manufacturerFilter.includes(item.manufacturer)) : result;
+            this.manufacturerFilter.length > 0
+                ? result.filter((item) => this.manufacturerFilter.includes(item.manufacturer))
+                : result;
         result =
             this.colorsFilter.length > 0 ? result.filter((item) => this.colorsFilter.includes(item.color)) : result;
-        result = this.camersFilter.length > 0 ? result.filter((item) => this.camersFilter.includes(item.camers)) : result;
+        result =
+            this.camersFilter.length > 0 ? result.filter((item) => this.camersFilter.includes(item.camers)) : result;
         result = this.popularFilter ? result.filter((item) => item.popular) : result;
         result = result.filter((item) => +item.count >= +this.countFilter[0] && +item.count <= +this.countFilter[1]);
         result = result.filter((item) => +item.year >= +this.yearFilter[0] && +item.year <= +this.yearFilter[1]);
@@ -155,7 +153,6 @@ class Db {
             this[filtertype] = value as string;
         }
     };
-
 
     public getISFirstLoading = () => this.isFirstLoading;
     public setIsNotFirstLoading = () => (this.isFirstLoading = false);

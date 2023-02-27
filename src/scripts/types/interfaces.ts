@@ -52,6 +52,9 @@ export interface IFilters {
     searchFilter: string;
 }
 
-export type CategoryFilterTypes = Record<TypeFilter, string | Manufacturer[] | Colors[] | Camers[] | boolean | (string | number)[]>;
+export type CategoryFilterTypes = Record<
+    TypeFilter,
+    string | Manufacturer[] | Colors[] | Camers[] | boolean | (string | number)[]
+>;
 
 export type CategoryFilterType = Manufacturer | Colors | Camers | boolean | (string | number)[] | string;

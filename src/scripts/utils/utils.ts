@@ -1,1 +1,1 @@
-export const cutDecimalsFormat = (str: string[]) => str.map((item) => item.split('.')[0]);
+export const cutDecimalsFormat = (str: (string | number)[]) => str.map((item) => (item as string).split('.')[0]);
