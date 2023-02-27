@@ -1,0 +1,37 @@
+.true {
+    background: #cbb77a;
+    bottom: 15px;
+    height: 30px;
+    left: -8px;
+    position: absolute;
+    width: 80px
+}
+
+.true:after,
+.true:before {
+    content: "";
+    height: 0;
+    position: absolute;
+    width: 0
+}
+
+.true:before {
+    border-bottom: 8px solid #14455b;
+    border-left: 8px solid transparent;
+    top: -8px
+}
+
+.true:after {
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid #cbb77a;
+    border-top: 15px solid transparent;
+    right: -15px
+}
+
+.card.active .ribbon {
+    background: #cbb77a
+}
+
+.card.active .ribbon:after {
+    border-left: 15px solid #cbb77a
+}
