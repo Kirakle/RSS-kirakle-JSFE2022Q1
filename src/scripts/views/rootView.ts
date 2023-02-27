@@ -1,5 +1,5 @@
 import { root } from '../selectors/selectors';
-import { templateHeader, templateLayout, templateSearchFilter } from '../templates/enter';
+import { templateHeader, templateLayout} from '../templates/enter';
 import { TypePage } from '../types/enums';
 import { CategoryFilterTypes } from '../types/interfaces';
 
@@ -21,7 +21,7 @@ class Root {
             page,
             countFavorite,
         );
-        page === TypePage.filter && templateSearchFilter(activeFilters);
+        page === TypePage.filter;
     }
 }
 

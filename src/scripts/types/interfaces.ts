@@ -11,6 +11,25 @@ export interface ICardItem {
     popular: boolean;
 }
 
+export interface IManufacturerFilterConstants {
+    id: number;
+    type: Manufacturer;
+    image: string;
+    key: string;
+}
+
+
+export interface ISortFilterConstants {
+    id: number;
+    type: TypeSort;
+    idName: string;
+    innerText: string;
+}
+
+export interface ISliderFilterConstants {
+    count: number;
+    year: number;
+}
 export interface IFilters {
     manufacturerFilter: Manufacturer[];
     colorsFilter: Colors[];

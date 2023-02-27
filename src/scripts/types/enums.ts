@@ -9,9 +9,9 @@ export enum Colors {
     red = 'красный',
 }
 export enum Camers {
-    one = 'one',
-    two = 'two',
-    three = 'three',
+    one = 'одна',
+    two = 'две',
+    three = 'три',
 }
 
 export enum TypeFilter {

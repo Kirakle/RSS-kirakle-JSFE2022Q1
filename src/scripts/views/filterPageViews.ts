@@ -1,10 +1,10 @@
 import { EMPTY_FILTER_TEXT } from '../constants/constants';
-import {
-    templateFilterPage,
-} from '../templates';
+import {setFiltersListeners,templateFilterPage} from '../templates';
 import { setCardItemListners, templateCardItem } from '../templates/filter-page-card';
-import { TypeSort } from '../types/enums';
-import { CategoryFilterTypes, ICardItem } from '../types/interfaces';
+import { TypeFilter } from '../types/enums';
+import { CategoryFilterType, CategoryFilterTypes, ICardItem } from '../types/interfaces';
+import { cutDecimalsFormat } from '../utils/utils';
+
 import Root from './rootView';
 
 class FilterPage {
@@ -13,6 +13,15 @@ class FilterPage {
     constructor() {
         this.root = new Root();
     }
+
+    public rangeHandler = (
+        value: string[],
+        filterHandler: (filtertype: TypeFilter, item: CategoryFilterType) => void,
+        key: TypeFilter
+    ): void => {
+        const val: string[] = cutDecimalsFormat(value);
+        filterHandler(key, val);
+    };
 
     public renderCards = (
         arr: ICardItem[],
@@ -34,17 +43,16 @@ class FilterPage {
     };
 
     public renderFilterPage = (
+        filterHandler: (filtertype: TypeFilter, item: CategoryFilterType) => void,
         activeFilter: CategoryFilterTypes,
-        sortHandler: (sortType: TypeSort) => void,
-        activeSort: TypeSort,
         reset: () => void,
         resetHand: () => void,
         isResetLocal: () => void
     ): void => {
         this.root.resetContainer();
-        const html: string = templateFilterPage(activeFilter, activeSort);
-
+        const html: string = templateFilterPage(activeFilter);
         this.root.changeInnerRoot(html);
+        setFiltersListeners(filterHandler);
     };
 }
 

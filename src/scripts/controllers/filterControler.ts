@@ -23,25 +23,28 @@ class FilterController {
         if (cart.length < MAX_LENGTH_GOODS_IN_CART || cart.includes(item)) {
             ls.setCartLocalStorage(item);
             db.setCart(ls.getCartLocalStorage());
-            this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
-        };
-    }
+        }
 
-    private sortHandler = (sortType: TypeSort): void => {
-        db.setCurrentSort(sortType);
-        ls.setSortLocalStorage(sortType);
         this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
+    };
+
+    private filterHandler = (filtertype: TypeFilter, item: CategoryFilterType): void => {
+        this.setFilters(filtertype, item);
+        if (filtertype !== TypeFilter.search) {
+            this.drawFilterPage();
+        } else {
+            this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
+        }
     };
 
     public resetHandler = (): void => {
         this.drawFilterPage();
     };
 
-    public drawFilterPage = (): void => {
+    public drawFilterPage = (): void => {  
         this.filterPage.renderFilterPage(
+            this.filterHandler,
             db.getActiveFilters(),
-            this.sortHandler,
-            db.getActiveSort(),
             db.setStartedFilters,
             this.resetHandler,
             ls.setResetLocal
