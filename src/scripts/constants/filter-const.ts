@@ -1,4 +1,4 @@
-import { TypeSort } from '../types/enums';
+import { Colors, Manufacturer, Camers, TypeSort } from '../types/enums';
 import { ICardItem } from '../types/interfaces';
 
 
