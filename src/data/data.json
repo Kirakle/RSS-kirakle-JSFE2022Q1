@@ -1,0 +1,82 @@
+[
+  {
+    "num": "1",
+    "name": "Apple IPhone 11",
+    "count": "12",
+    "year": "2018",
+    "manufacturer": "Apple",
+    "color": "белый",
+    "camers": "three",
+    "popular": true
+  },
+  {
+    "num": "2",
+    "name": "Apple IPhone 12",
+    "count": "2",
+    "year": "2020",
+    "manufacturer": "Apple",
+    "color": "желтый",
+    "camers": "three",
+    "popular": false
+  },
+  {
+    "num": "3",
+    "name": "Apple IPhone 13",
+    "count": "10",
+    "year": "2021",
+    "manufacturer": "Apple",
+    "color": "красный",
+    "camers": "three",
+    "popular": false
+  },
+  {
+    "num": "4",
+    "name": "Xiaomi Poco X4 pro",
+    "count": "1",
+    "year": "2022",
+    "manufacturer": "Xiaomi",
+    "color": "желтый",
+    "camers": "two",
+    "popular": false
+  },
+  {
+    "num": "5",
+    "name": "Xiaomi Redmi 9C 3/64gb",
+    "count": "6",
+    "year": "2018",
+    "manufacturer": "Xiaomi",
+    "color": "красный",
+    "camers": "two",
+    "popular": false
+  },
+  {
+    "num": "6",
+    "name": "Xiaomi Redmi Note 2",
+    "count": "6",
+    "year": "2016",
+    "manufacturer": "Xiaomi",
+    "color": "белый",
+    "camers": "one",
+    "popular": true
+  },
+  {
+    "num": "7",
+    "name": "Samsung Galaxy A03",
+    "count": "5",
+    "year": "2015",
+    "manufacturer": "Samsung",
+    "color": "красный",
+    "camers": "two",
+    "popular": false
+  },
+  {
+    "num": "8",
+    "name": "Samsung Galaxy S20",
+    "count": "3",
+    "year": "2015",
+    "manufacturer": "Samsung",
+    "color": "желтый",
+    "camers": "one",
+    "popular": false
+  }
+]
