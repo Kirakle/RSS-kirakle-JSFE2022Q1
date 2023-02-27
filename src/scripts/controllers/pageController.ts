@@ -4,7 +4,6 @@ import { TypePage } from '../types/enums';
 
 class PageController {
     private root: Root;
-    
     constructor() {
         this.root = new Root();
     }

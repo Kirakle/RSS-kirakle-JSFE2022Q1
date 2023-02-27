@@ -38,6 +38,11 @@ class FilterController {
             this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
         }
     };
+    private sortHandler = (sortType: TypeSort): void => {
+        db.setCurrentSort(sortType);
+        ls.setSortLocalStorage(sortType);
+        this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
+    };
 
     private sliderHandler = (filtertype: TypeFilter, value: CategoryFilterType): void => {
         this.setFilters(filtertype, value);
@@ -57,11 +62,14 @@ class FilterController {
         this.filterPage.renderFilterPage(
             this.filterHandler,
             db.getActiveFilters(),
+            this.sortHandler,
+            db.getActiveSort(),
             db.setStartedFilters,
             this.resetHandler,
             ls.setResetLocal
         );
         PageController.renderHeader(TypePage.filter);
+        this.filterPage.setSearchListeners(this.filterHandler);
         this.filterPage.renderCards(db.getFilteredCardsArr(), ls.getCartLocalStorage(), this.cartHandler);
     };
 }

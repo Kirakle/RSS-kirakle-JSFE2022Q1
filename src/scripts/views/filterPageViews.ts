@@ -1,8 +1,15 @@
 import { EMPTY_FILTER_TEXT } from '../constants/constants';
 import { countMax, countMin, filterCountRange, filterYearRange, yearMax, yearMin } from '../selectors/selectors';
-import {setFiltersListeners,setModalListeners,templateFilterPage} from '../templates';
+import {
+    setFiltersListeners,
+    setModalListeners,
+    setResetFiltersListeners,
+    setSearchListeners,
+    setSortListeners,
+    templateFilterPage,
+} from '../templates';
 import { setCardItemListners, templateCardItem } from '../templates/filter-page-card';
-import { TypeFilter } from '../types/enums';
+import { TypeFilter, TypeSort } from '../types/enums';
 import { CategoryFilterType, CategoryFilterTypes, ICardItem } from '../types/interfaces';
 import { initSlider } from '../utils/slider';
 import { cutDecimalsFormat } from '../utils/utils';
@@ -63,6 +70,10 @@ class FilterPage {
         modal.classList.add('show-modal');
     };
 
+    public setSearchListeners = (filterHandler: (filtertype: TypeFilter, item: CategoryFilterType) => void): void => {
+        setSearchListeners(filterHandler);
+    };
+
     public renderCards = (arr: ICardItem[], getLocalCart: string[], setLocalCart: (value: string) => void): void => {
         const div: HTMLTemplateElement = <HTMLTemplateElement>document.querySelector('.filter__cards');
         div.innerHTML = '';
@@ -81,15 +92,20 @@ class FilterPage {
     public renderFilterPage = (
         filterHandler: (filtertype: TypeFilter, item: CategoryFilterType) => void,
         activeFilter: CategoryFilterTypes,
+        sortHandler: (sortType: TypeSort) => void,
+        activeSort: TypeSort,
         reset: () => void,
         resetHand: () => void,
         isResetLocal: () => void
     ): void => {
         this.root.resetContainer();
-        const html: string = templateFilterPage(activeFilter);
+        const html: string = templateFilterPage(activeFilter, activeSort);
+
         this.root.changeInnerRoot(html);
         setModalListeners();
         setFiltersListeners(filterHandler);
+        setSortListeners(sortHandler);
+        setResetFiltersListeners(reset, resetHand, isResetLocal);
     };
 }
 

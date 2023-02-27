@@ -94,6 +94,19 @@ const templatePopularFilter: TemplatePopularFilterType = (activeFilters) => {
     return div.outerHTML;
 };
 
+export const setSearchListeners = (filter: (filtertype: TypeFilter, item: CategoryFilterType) => void) => {
+    const isSearch: HTMLInputElement = <HTMLInputElement>document.querySelector('.input__search');
+
+    isSearch.addEventListener('keyup', (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        filter(TypeFilter.search, target.value);
+    });
+    isSearch.addEventListener('search', (e: Event) => {
+        const target = e.target as HTMLInputElement;
+        filter(TypeFilter.search, target.value);
+    });
+};
+
 export const setFiltersListeners: (filter: (filtertype: TypeFilter, item: CategoryFilterType) => void) => void = (
     filter: (filtertype: TypeFilter, item: CategoryFilterType) => void
 ): void => {
@@ -117,6 +130,25 @@ export const setFiltersListeners: (filter: (filtertype: TypeFilter, item: Catego
     isPopular.addEventListener('change', (e: Event) => {
         const target = e.target as HTMLInputElement;
         filter(TypeFilter.popular, target.checked);
+    });
+};
+
+export const setResetFiltersListeners = (reset: () => void, resetHand: () => void, isResetLocal: () => void): void => {
+    const isResetFilters: HTMLButtonElement = <HTMLButtonElement>document.getElementById('reset-filter');
+    isResetFilters.addEventListener('click', () => {
+        reset();
+        resetHand();
+    });
+    const isResetLocalBtn: HTMLButtonElement = <HTMLButtonElement>document.getElementById('reset-storage');
+    isResetLocalBtn.addEventListener('click', () => {
+        reset();
+        resetHand();
+        templateCartCount(0);
+        isResetLocal();
+        reset();
+        resetHand();
+        templateCartCount(0);
+        isResetLocal();
     });
 };
 
@@ -145,8 +177,18 @@ export const setModalListeners = (): void => {
     });
 };
 
-export const templateFilterPage: (activeFilter: CategoryFilterTypes) => string = (
+export const setSortListeners: (sort: (sorttype: TypeSort) => void) => void = (
+    sort: (sorttype: TypeSort) => void
+): void => {
+    const sorts = document.querySelectorAll('.sort-input');
+    sorts.forEach((item, index) => {
+        item.addEventListener('change', () => sort(SORTS[index].type));
+    });
+};
+
+export const templateFilterPage: (activeFilter: CategoryFilterTypes, activeSort: TypeSort) => string = (
     activeFilter: CategoryFilterTypes,
+    activeSort: TypeSort
 ): string => {
     return `
         <main class="filter-page">
@@ -185,7 +227,8 @@ export const templateFilterPage: (activeFilter: CategoryFilterTypes) => string =
                         <div id="searching" class ="search-container">
                           <h2>Поиск</h2>
                         </div>
-                        <h2>Сортировка</h2>                    
+                        <h2>Сортировка</h2>
+                        ${templateSortRadio(activeSort)}                        
                         <div class="reset-buttons">
                             <button id="reset-filter">Сброс фильтров</button>
                             <button id="reset-storage">Сброс настроек</button>
