@@ -1,0 +1,34 @@
+ .footer {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     color: white;
+     padding: 0.4rem 0;
+     margin: 0.4rem 0;
+     background: black;
+
+     .author {
+         margin: 0 1rem;
+
+         a {
+             text-decoration: none;
+             color: $light-yellow-text;
+             font-size: 1rem;
+             text-shadow: $main-text-shadow;
+         }
+     }
+
+     .course {
+        
+         a {
+             display: block;
+             margin: 0 1rem;
+             background-image: url(../assets/images/logo_rss.svg);
+             background-size: cover;
+             background-repeat: no-repeat;
+             width: 5rem;
+             height: 1.9rem;
+         }
+
+     }
+ }

@@ -1,0 +1,20 @@
+@import "variables.scss";
+@import "filterPage.scss";
+@import "header.scss";
+@import "footer.scss";
+@import "ribbons.scss";
+
+
+body {
+    background-image: url(../assets/page-bg/background.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
