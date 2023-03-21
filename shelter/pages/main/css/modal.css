@@ -1,0 +1,126 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 0.2s ease-in-out;
+  background: #fafafa;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  z-index: 16; /* ---------- z-index: 6; ------------- */
+}
+.modal.mmm {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.close-button {
+  position: absolute;
+  top: -53px;
+  right: -42px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #292929;
+  font-size: 40px;
+  border: 2px solid #f1cdb3;
+  border-radius: 100%;
+  width: 52px;
+  height: 52px;
+}
+.close-button:hover {
+  background: #fddcc4;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 0.2s ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(41, 41, 41, 0.6);
+  pointer-events: none;
+  z-index: 10;
+}
+#overlay.mmm {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#modal.mmm:not(:hover) .close-button{
+  background: #fddcc4;
+}
+
+.modal-content {
+  /* margin-top: 10px; */
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
+
+.modal-img {
+  width: 100%;
+  margin-right: 29px;
+}
+
+.modal-img > img {
+  /* width: 500px;
+   height: 500px; */
+  width: 500px;
+  height: 500px;
+}
+
+.modal-name {
+  font-family: Georgia;
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0.22rem;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.modal-type-breed {
+  font-family: Georgia;
+  font-size: 20px;
+  line-height: 115%;
+  letter-spacing: 0.13rem;
+  color: #000000;
+}
+
+.modal-about,
+.modal-description {
+  font-family: Georgia;
+  font-size: 15px;
+  line-height: 119%;
+  letter-spacing: 0.09rem;
+  color: #000000;
+}
+
+.modal-ul {
+  margin: 0;
+  padding: 0 3px 0 15px;
+  /* list-style: none; */
+  list-style-position: outside;
+  color: #f1cdb3;
+}
+
+.modal-li {
+  margin-bottom: 11px;
+}
+
+.modal-li > span{
+  color: #000;
+}
+
+/* .modal-li::before {
+  content: '•';
+  color: #f1cdb3;
+} */
+
+.modal-description {
+  margin: 40px 0;
+}
+

@@ -1,0 +1,58 @@
+.slick-track {
+  display: flex;
+}
+.slick-list {
+  overflow: hidden;
+}
+.swiper-wrapper {
+  min-width: 0;
+  position: relative;
+}
+/* .our-friends-pet  */
+.swiper-wrapper .slick-arrow {
+  z-index: 5;
+  width: 5.2rem;
+  height: 5.2rem;
+  /* margin-bottom: 6rem; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 0.2rem solid #f1cdb3;
+  border-radius: 2.6rem;
+  position: absolute;
+  top: 44%;
+  font-size: 0;
+
+  outline: transparent;
+}
+
+.swiper-wrapper .slick-arrow.slick-prev {
+  left: calc(50% - 600px - 0px);
+  right: auto;
+  background: center url(../../../assets/icons/arrow.svg) no-repeat, #F6F6F6;
+}
+
+.swiper-wrapper .slick-arrow.slick-next {
+  transform: rotate(180deg);
+  right: calc(50% - 600px - 0px);
+  left: auto;
+  background: center url(../../../assets/icons/arrow.svg) no-repeat, #F6F6F6;
+}
+
+.swiper-wrapper .slick-arrow.slick-prev:hover {
+  cursor: pointer;
+  background: center url(../../../assets/icons/arrow.svg) no-repeat, #f1cdb3;
+}
+
+.swiper-wrapper .slick-arrow:hover {
+  cursor: pointer;
+  background: center url(../../../assets/icons/arrow.svg) no-repeat, #f1cdb3;
+}
+
+.our-friends-pet {
+  text-align: center;
+  margin: auto;
+}
+
