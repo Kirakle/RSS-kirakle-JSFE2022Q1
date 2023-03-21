@@ -257,9 +257,10 @@ a.neactivia {
     border-color: #fddcc4;
 }
 
-/* .our-friends-pet:hover .our-friends-button-box {
+.our-friends-pet:hover .our-friends-button-box {
   background: #fddcc4;
-} */
+  border-color:#fddcc4 ;
+}
 
 .our-friends-button-learn-more {
     padding: 1.4rem 4.3rem;

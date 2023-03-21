@@ -360,6 +360,11 @@ a.neactivia {
   background: #FFFFFF;
 }
 
+.our-friends-pet:hover div {
+    background: #fddcc4;
+    border-color:#fddcc4 ;
+  }
+
 /* .our-friends-pet:hover .our-friends-button-box {
   background: #fddcc4;
 } */
@@ -462,7 +467,6 @@ a.neactivia {
   line-height: 130%;
   text-align: center;
   letter-spacing: 0.21rem;
-
   color: #545454;
 }
 
