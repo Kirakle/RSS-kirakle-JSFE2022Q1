@@ -4,14 +4,14 @@ import { Car } from './interfaces';
 import { dataStorage } from './storage';
 
 class Winners {
-  async createWinners(winnerList: Array<Winner>) {
-    const number = document.querySelector('.number-column') as HTMLElement;
-    const car = document.querySelector('.car-column') as HTMLElement;
-    const name = document.querySelector('.name-column') as HTMLElement;
-    const wins = document.querySelector('.wins-column') as HTMLElement;
-    const time = document.querySelector('.time-column') as HTMLElement;
+  async createWinners(winnerList: Array<Winner>): Promise<void> {
+    const number = document.querySelector('.number-column') as HTMLDivElement;
+    const car = document.querySelector('.car-column') as HTMLDivElement;
+    const name = document.querySelector('.name-column') as HTMLDivElement;
+    const wins = document.querySelector('.wins-column') as HTMLDivElement;
+    const time = document.querySelector('.time-column') as HTMLDivElement;
     const winnersPromises: Array<Promise<Car[] | undefined>> = [];
-    const winnersHeader = document.querySelector('h1 > span') as HTMLElement;
+    const winnersHeader = document.querySelector('h1 > span') as HTMLSpanElement;
     let carsInfo: Array<Car> = [];
 
     winnerList.forEach((elem: Winner) => {

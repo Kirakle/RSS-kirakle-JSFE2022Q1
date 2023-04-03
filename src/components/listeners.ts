@@ -8,7 +8,7 @@ import { SvgInHtml } from './animation';
 import { winners } from './winners';
 
 export default class {
-  setViewListeners() {
+  setViewListeners(): void {
     const garageButton = document.getElementById('garage-view') as HTMLElement;
     const winnersButton = document.getElementById('winners-view') as HTMLElement;
     const userModel = document.getElementById('create-text') as HTMLInputElement;
@@ -31,12 +31,12 @@ export default class {
     });
   }
 
-  setCreateListener() {
+  setCreateListener(): void {
     const createButton = document.getElementById('create') as HTMLElement;
     const userModel = document.getElementById('create-text') as HTMLInputElement;
     const userColor = document.getElementById('create-color') as HTMLInputElement;
 
-    createButton.addEventListener('click', function () {
+    createButton.addEventListener('click', function (): void {
       if (!userModel.value) {
         userModel.placeholder = 'You need to enter model to create a car!';
       } else {
@@ -47,22 +47,22 @@ export default class {
     });
   }
 
-  setSelectListeners() {
+  setSelectListeners(): void {
     const selectButtons = document.querySelectorAll('div[data-select]');
 
     selectButtons.forEach((elem: Node) => {
-      (elem as HTMLElement).addEventListener('click', async function () {
+      (elem as HTMLElement).addEventListener('click', async function (): Promise<void> {
         dataStorage.currentCar = +((elem as HTMLElement).dataset.select as string);
         apiController.getCarInfo(dataStorage.currentCar);
       });
     });
   }
 
-  setRemoveListeners() {
+  setRemoveListeners(): void {
     const removeButtons = document.querySelectorAll('div[data-remove]');
 
     removeButtons.forEach((elem: Node) => {
-      (elem as HTMLElement).addEventListener('click', async function () {
+      (elem as HTMLElement).addEventListener('click', async function (): Promise<void> {
         const id = +((elem as HTMLElement).dataset.remove as string);
         apiController.deleteCar(id).then(() => render.updateCars());
         apiController.deleteWinner(id);
@@ -71,12 +71,12 @@ export default class {
     });
   }
 
-  setUpdateListener() {
+  setUpdateListener(): void {
     const updateText = document.getElementById('update-text') as HTMLInputElement;
     const updateColor = document.getElementById('update-color') as HTMLInputElement;
-    const updateButton = document.getElementById('update') as HTMLElement;
+    const updateButton = document.getElementById('update') as HTMLDivElement;
 
-    updateButton.addEventListener('click', function () {
+    updateButton.addEventListener('click', function (): void {
       if (dataStorage.currentCar === 0) {
         updateText.value = '';
         updateText.placeholder = 'Select car first!';
@@ -89,21 +89,21 @@ export default class {
     });
   }
 
-  setGenerateListener() {
-    const generator = document.getElementById('generate') as HTMLElement;
+  setGenerateListener(): void {
+    const generator = document.getElementById('generate') as HTMLDivElement;
 
-    generator.addEventListener('click', function () {
+    generator.addEventListener('click', function (): void {
       Promise.all(randomiser.getRandomCars()).then(() => {
         render.updateCars();
       });
     });
   }
 
-  setPageListeners() {
-    const prevButton = document.getElementById('prev') as HTMLElement;
-    const nextButton = document.getElementById('next') as HTMLElement;
+  setPageListeners(): void {
+    const prevButton = document.getElementById('prev') as HTMLDivElement;
+    const nextButton = document.getElementById('next') as HTMLDivElement;
 
-    prevButton.addEventListener('click', function () {
+    prevButton.addEventListener('click', function (): void {
       if (dataStorage.garagePage > 1) {
         dataStorage.garagePage -= 1;
         //dataStorage.refresh();
@@ -111,7 +111,7 @@ export default class {
       }
     });
 
-    nextButton.addEventListener('click', function () {
+    nextButton.addEventListener('click', function (): void {
       if (dataStorage.garagePage < Math.ceil(dataStorage.carCount / 7)) {
         dataStorage.garagePage += 1;
         //dataStorage.refresh();
@@ -120,22 +120,25 @@ export default class {
     });
   }
 
-  setDriveListeners() {
+  setDriveListeners(): void {
     const startButtons = document.querySelectorAll('.start');
 
     startButtons.forEach((startButton: Node) => {
-      (startButton as HTMLElement).addEventListener('click', async () => {
-        const id = ((startButton as HTMLElement).dataset.start as unknown) as number;
-        if (!(startButton as HTMLElement).classList.contains('disabled')) {
-          this.driveStarter(+id);
-        }
-      });
+      (startButton as HTMLDivElement).addEventListener(
+        'click',
+        async (): Promise<void> => {
+          const id = ((startButton as HTMLDivElement).dataset.start as unknown) as number;
+          if (!(startButton as HTMLDivElement).classList.contains('disabled')) {
+            this.driveStarter(+id);
+          }
+        },
+      );
     });
   }
 
-  async driveStarter(id: number) {
-    const startButton = document.querySelector(`[data-start="${id}"]`) as HTMLElement;
-    const stopButton = document.querySelector(`[data-stop="${id}"]`) as HTMLElement;
+  async driveStarter(id: number): Promise<void> {
+    const startButton = document.querySelector(`[data-start="${id}"]`) as HTMLDivElement;
+    const stopButton = document.querySelector(`[data-stop="${id}"]`) as HTMLDivElement;
     const car = document.querySelector(`#car-${id}`) as SvgInHtml;
     startButton.classList.add('disabled');
     const response = await apiController.startEngine(+id);
@@ -144,22 +147,22 @@ export default class {
     animator.animateCar(+id, (response as EngineStatus).distance, (response as EngineStatus).velocity);
   }
 
-  setStopListeners() {
+  setStopListeners(): void {
     const stopButtons = document.querySelectorAll('.stop');
 
     stopButtons.forEach((stopButton: Node) => {
-      (stopButton as HTMLElement).addEventListener('click', async () => {
-        const id = ((stopButton as HTMLElement).dataset.stop as unknown) as number;
-        if (!(stopButton as HTMLElement).classList.contains('disabled')) {
+      (stopButton as HTMLDivElement).addEventListener('click', async () => {
+        const id = ((stopButton as HTMLDivElement).dataset.stop as unknown) as number;
+        if (!(stopButton as HTMLDivElement).classList.contains('disabled')) {
           this.driveStopper(id);
         }
       });
     });
   }
 
-  async driveStopper(id: number) {
-    const stopButton = document.querySelector(`[data-stop="${id}"]`) as HTMLElement;
-    const startButton = document.querySelector(`[data-start="${id}"]`) as HTMLElement;
+  async driveStopper(id: number): Promise<void> {
+    const stopButton = document.querySelector(`[data-stop="${id}"]`) as HTMLDivElement;
+    const startButton = document.querySelector(`[data-start="${id}"]`) as HTMLDivElement;
     const car = document.querySelector(`#car-${id}`) as SvgInHtml;
     stopButton.classList.add('disabled');
     apiController.stopEngine(id).then(() => {
@@ -178,21 +181,21 @@ export default class {
     });
   }
 
-  startRace() {
+  startRace(): Array<Promise<void>> {
     const buttons = document.querySelectorAll('[data-start]');
-    const racers: Array<Promise<unknown>> = [];
+    const racers: Array<Promise<void>> = [];
 
     buttons.forEach((elem: Node) => {
-      const id = +(((elem as HTMLElement).dataset.start as unknown) as number);
+      const id = +(((elem as HTMLDivElement).dataset.start as unknown) as number);
       racers.push(this.driveStarter(id));
     });
 
     return racers;
   }
 
-  setRaceListener() {
-    const raceButton = document.getElementById('race') as HTMLElement;
-    const resetButton = document.getElementById('reset') as HTMLElement;
+  setRaceListener(): void {
+    const raceButton = document.getElementById('race') as HTMLDivElement;
+    const resetButton = document.getElementById('reset') as HTMLDivElement;
 
     raceButton.addEventListener('click', () => {
       if (!raceButton.classList.contains('disabledButton')) {
@@ -205,21 +208,21 @@ export default class {
     });
   }
 
-  stopRace() {
+  stopRace(): Array<Promise<void>> {
     const buttons = document.querySelectorAll('[data-stop]');
-    const racers: Array<Promise<unknown>> = [];
+    const racers: Array<Promise<void>> = [];
 
     buttons.forEach((elem: Node) => {
-      const id = +(((elem as HTMLElement).dataset.stop as unknown) as number);
+      const id = +(((elem as HTMLDivElement).dataset.stop as unknown) as number);
       racers.push(this.driveStopper(id));
     });
 
     return racers;
   }
 
-  setRaceResetListener() {
-    const resetButton = document.getElementById('reset') as HTMLElement;
-    const raceButton = document.getElementById('race') as HTMLElement;
+  setRaceResetListener(): void {
+    const resetButton = document.getElementById('reset') as HTMLDivElement;
+    const raceButton = document.getElementById('race') as HTMLDivElement;
 
     resetButton.addEventListener('click', () => {
       if (!resetButton.classList.contains('disabledButton')) {
@@ -233,29 +236,29 @@ export default class {
     });
   }
 
-  setHideWinnerListener() {
-    const winner = document.querySelector('.winnerbox') as HTMLElement;
+  setHideWinnerListener(): void {
+    const winner = document.querySelector('.winnerbox') as HTMLDivElement;
 
-    document.addEventListener('click', function (event) {
+    document.addEventListener('click', function (event: MouseEvent): void {
       if (!winner.classList.contains('hidden') && event.target !== winner) {
         winner.classList.add('hidden');
       }
     });
   }
 
-  setWinnersListeners() {
+  setWinnersListeners(): void {
     this.setNumberListener();
     this.setWinsListener();
     this.setTimeListener();
     this.setWinnersPageListeners();
   }
 
-  setNumberListener() {
-    const number = document.querySelector('#win-num') as HTMLElement;
-    const wins = document.querySelector('#win-win') as HTMLElement;
-    const time = document.querySelector('#win-time') as HTMLElement;
+  setNumberListener(): void {
+    const number = document.querySelector('#win-num') as HTMLDivElement;
+    const wins = document.querySelector('#win-win') as HTMLDivElement;
+    const time = document.querySelector('#win-time') as HTMLDivElement;
 
-    number.addEventListener('click', function () {
+    number.addEventListener('click', function (): void {
       time.classList.remove(dataStorage.order === 'ASC' ? 'usual' : 'reverse');
       wins.classList.remove(dataStorage.order === 'ASC' ? 'usual' : 'reverse');
       if (number.classList.contains('usual')) {
@@ -278,12 +281,12 @@ export default class {
     });
   }
 
-  setWinsListener() {
-    const wins = document.querySelector('#win-win') as HTMLElement;
-    const number = document.querySelector('#win-num') as HTMLElement;
-    const time = document.querySelector('#win-time') as HTMLElement;
+  setWinsListener(): void {
+    const wins = document.querySelector('#win-win') as HTMLDivElement;
+    const number = document.querySelector('#win-num') as HTMLDivElement;
+    const time = document.querySelector('#win-time') as HTMLDivElement;
 
-    wins.addEventListener('click', function () {
+    wins.addEventListener('click', function (): void {
       time.classList.remove(dataStorage.order === 'ASC' ? 'usual' : 'reverse');
       number.classList.remove(dataStorage.order === 'ASC' ? 'usual' : 'reverse');
       if (wins.classList.contains('usual')) {
@@ -306,12 +309,12 @@ export default class {
     });
   }
 
-  setTimeListener() {
-    const time = document.querySelector('#win-time') as HTMLElement;
-    const wins = document.querySelector('#win-win') as HTMLElement;
-    const number = document.querySelector('#win-num') as HTMLElement;
+  setTimeListener(): void {
+    const time = document.querySelector('#win-time') as HTMLDivElement;
+    const wins = document.querySelector('#win-win') as HTMLDivElement;
+    const number = document.querySelector('#win-num') as HTMLDivElement;
 
-    time.addEventListener('click', function () {
+    time.addEventListener('click', function (): void {
       number.classList.remove(dataStorage.order === 'ASC' ? 'usual' : 'reverse');
       wins.classList.remove(dataStorage.order === 'ASC' ? 'usual' : 'reverse');
       if (time.classList.contains('usual')) {
@@ -334,18 +337,18 @@ export default class {
     });
   }
 
-  setWinnersPageListeners() {
-    const prevButton = document.getElementById('win-prev') as HTMLElement;
-    const nextButton = document.getElementById('win-next') as HTMLElement;
+  setWinnersPageListeners(): void {
+    const prevButton = document.getElementById('win-prev') as HTMLDivElement;
+    const nextButton = document.getElementById('win-next') as HTMLDivElement;
 
-    prevButton.addEventListener('click', function () {
+    prevButton.addEventListener('click', function (): void {
       if (dataStorage.winnersPage > 1) {
         dataStorage.winnersPage -= 1;
         apiController.getWinners().then((res) => winners.createWinners(res as Array<Winner>));
       }
     });
 
-    nextButton.addEventListener('click', function () {
+    nextButton.addEventListener('click', function (): void {
       if (dataStorage.winnersPage < Math.ceil(dataStorage.winnersCount / 10)) {
         dataStorage.winnersPage += 1;
         apiController.getWinners().then((res) => winners.createWinners(res as Array<Winner>));
